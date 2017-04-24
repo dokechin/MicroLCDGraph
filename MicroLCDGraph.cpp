@@ -1,9 +1,9 @@
 #include "MicroLCDGraph.h"
 
-MicroLCDGraph::MicroLCDGraph(*MicroLCD lcd, *byte buffer, BYTE_SIZE size){
+MicroLCDGraph::MicroLCDGraph(*MicroLCD lcd, *byte bitmap, BYTE_SIZE size){
     this.lcd = lcd;
-    this.buffer = buffer;
-    this.data_length = buffer.size / size;
+    this.bitmap = bitmap;
+    this.width = buffer.size / size;
     byte_size = size;
 }
 
@@ -21,8 +21,8 @@ void MicroLCDGraph::draw(*int data, byte width, byte height)
         int shift = byte_size * ( data[i] - min ) / (max - min);
         line << shift;
         for(int j=0;j<byte_size;j++){
-            buffer[i + j* data_length] = line[j];
+            bitmap[i + j* width] = line[j];
         }
     }
-    lcd.draw(buffer, width, height);
+    lcd.draw(bitmap, width, height);
 }

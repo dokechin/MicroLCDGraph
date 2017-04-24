@@ -19,13 +19,14 @@ typedef enum {
 class MicroLCDGraph
 {
 public:
-    MicroLCDGraph(MicroLCD lcd, BYTE_SIZE byte_size);
+    MicroLCDGraph(MicroLCD lcd, *byte bitmap, BYTE_SIZE byte_size);
     void setDomain(int min, int max);
     void draw(const PROGMEM byte* buffer, byte width, byte height);
 private:
     *MicroLCD lcd;
+    *byte bitmap;
     BYTE_SIZE byte_size;
-    int data_length;
+    int width;
     int min;
     int max;
 };
