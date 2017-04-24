@@ -24,13 +24,13 @@ data is array contents of domain.
 #include <MicroLCD.h>
 #include <MicroLCDGraph.h>
 
-PROGMEN byte bitmap [16 * 5 /8] = {
+PROGMEN byte bitmap[16 * 5 /8] = {
  0x00, 0x00, 0x00, 0x00, 0x00,
  0x00, 0x00, 0x00, 0x00, 0x00
 };
 
 LCD_SSD1306 lcd; /* for SSD1306 OLED module */
-MicroLCDGraph lcd_graph(&lcd, BYTE_SIZE_2, 5);
+MicroLCDGraph lcd_graph(&lcd, bitmap, BYTE_SIZE_2);
 
 void setup()
 {
