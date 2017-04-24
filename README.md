@@ -15,8 +15,10 @@ MicroLCDGraph graph(*lcd lcd, BYTE_SIZE size, byte width);
 
 # method
 
+```C++
 domain(int min, int max);
 draw(*int data, byte width, byte height);
+```
 
 # example
 
