@@ -1,7 +1,7 @@
 #include <MicroLCD.h>
 #include <MicroLCDGraph.h>
 
-PROGMEN byte bitmap[16 * 5 /8] = {
+byte bitmap[16 * 5 /8] = {
  0x00, 0x00, 0x00, 0x00, 0x00,
  0x00, 0x00, 0x00, 0x00, 0x00
 };
