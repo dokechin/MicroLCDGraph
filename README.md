@@ -41,9 +41,9 @@ void loop()
 {
     int data[] = {98, 70, 28, 30, 60};
     lcd.clear();
-    lcd_graph.domain(0,100);
+    lcd_graph.setDomain(0,100);
 
-    while(){
+    while(1){
         lcd_graph.draw(data, 48, 0);
         for (int i=0;i<5;i++){
             data[i] = random(0,101);
