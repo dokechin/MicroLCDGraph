@@ -7,15 +7,17 @@ This library is depends on the Arduino library MicroLCD:
 https://github.com/stanleyhuangyc/MultiLCD
 
 # Constructor
-MicroLCDGraph graph(*lcd, *byte bitmap, BYTE_SIZE size);
 
-Example
-MicroLCDGraph graph(&lcd, buffer, BYTE_SIZE_2);
+```C++
+MicroLCDGraph graph(CommonLCD *lcd, byte *bitmap, BYTE_SIZE size);
+```
 
 # Method
+
+```C++
 setDomain(int min, int max);
-draw(*int data, byte width, byte height);
-data is array contents of domain.
+draw(int *data, byte width, byte height);
+```
 
 # example
 
