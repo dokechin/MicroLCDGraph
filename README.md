@@ -19,7 +19,7 @@ setDomain(int min, int max);
 draw(int *data, byte width, byte height);
 ```
 
-# example
+# Example
 
 ```C++
 
