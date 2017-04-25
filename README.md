@@ -9,7 +9,7 @@ https://github.com/stanleyhuangyc/MultiLCD
 # Constructor
 
 ```C++
-MicroLCDGraph graph(CommonLCD *lcd, byte *bitmap, BYTE_SIZE size);
+MicroLCDGraph graph(LCD_Common *lcd, byte *bitmap, BYTE_SIZE size);
 ```
 
 # Method
