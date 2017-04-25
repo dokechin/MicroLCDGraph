@@ -1,5 +1,7 @@
-#include <Arduino.h>
+#ifndef FLAG_PAD_ZERO
 #include <MicroLCD.h>
+#endif
+#include <Arduino.h>
 
 typedef enum {
     BYTE_SIZE_1 = 1,
@@ -16,19 +18,19 @@ typedef enum {
     BYTE_SIZE_12 = 12   
 } BYTE_SIZE;
 
+void shift_left(unsigned char *ar, int size, int shift);
+
 class MicroLCDGraph
 {
 public:
-    MicroLCDGraph(MicroLCD lcd, *byte bitmap, BYTE_SIZE byte_size);
+    MicroLCDGraph(LCD_Common *lcd, byte *bitmap, BYTE_SIZE byte_size);
     void setDomain(int min, int max);
-    void draw(const PROGMEM byte* buffer, byte width, byte height);
+    void draw(int *data, byte width, byte height);
 private:
-    *MicroLCD lcd;
-    *byte bitmap;
+    LCD_Common *_lcd;
+    byte *_bitmap;
     BYTE_SIZE byte_size;
-    int width;
-    int min;
-    int max;
+    int data_size;
+    int _min;
+    int _max;
 };
-
-
