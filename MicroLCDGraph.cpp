@@ -19,9 +19,12 @@ void MicroLCDGraph::draw(int *data, byte width, byte height)
     line[0] = 0x01;
     for (int i=0;i< data_size;i++){
         int shift = 8 * byte_size * ( data[i] - _min ) / (_max - _min);
+        if (shift > 8 * byte_size){
+            shift = (8 * byte_size) - 1;
+        }
         shift_left(line, byte_size, shift);
         for(int j=0;j<byte_size;j++){
-            _bitmap[i + j* width] = line[j];
+            _bitmap[i + j * data_size] = line[j];
         }
     }
     _lcd->draw(_bitmap, width, height);
