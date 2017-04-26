@@ -30,7 +30,7 @@ private:
     LCD_Common *_lcd;
     byte *_bitmap;
     BYTE_SIZE byte_size;
-    int data_size;
+    int data_length;
     int _min;
     int _max;
 };

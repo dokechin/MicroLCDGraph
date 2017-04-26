@@ -3,7 +3,7 @@
 MicroLCDGraph::MicroLCDGraph (LCD_Common *lcd, byte *bitmap, BYTE_SIZE size){
     _lcd = lcd;
     _bitmap = bitmap;
-    data_size = sizeof(bitmap) / size;
+    data_length = sizeof(bitmap) / size;
     byte_size = size;
 }
 
@@ -24,7 +24,7 @@ void MicroLCDGraph::draw(int *data, byte width, byte height)
         }
         shift_left(line, byte_size, shift);
         for(int j=0;j<byte_size;j++){
-            _bitmap[i + j * data_size] = line[j];
+            _bitmap[i + j * data_length] = line[j];
         }
     }
     _lcd->draw(_bitmap, width, height);
