@@ -23,14 +23,14 @@ void shift_left(unsigned char *ar, int size, int shift);
 class MicroLCDGraph
 {
 public:
-    MicroLCDGraph(LCD_Common *lcd, byte *bitmap, BYTE_SIZE byte_size);
+    MicroLCDGraph(LCD_Common *lcd, byte *bitmap, BYTE_SIZE byte_size, byte data_length);
     void setDomain(int min, int max);
-    void draw(int *data, byte width, byte height);
+    void draw(int *data);
 private:
     LCD_Common *_lcd;
     byte *_bitmap;
-    BYTE_SIZE byte_size;
-    int data_length;
+    BYTE_SIZE _byte_size;
+    int _data_length;
     int _min;
     int _max;
 };

@@ -1,10 +1,10 @@
-#include <MicroLCDGraph.h>
+#include "MicroLCDGraph.h"
 
-MicroLCDGraph::MicroLCDGraph (LCD_Common *lcd, byte *bitmap, BYTE_SIZE size){
+MicroLCDGraph::MicroLCDGraph (LCD_Common *lcd, byte *bitmap, BYTE_SIZE size, byte data_length){
     _lcd = lcd;
     _bitmap = bitmap;
-    data_length = sizeof(bitmap) / size;
-    byte_size = size;
+    _byte_size = size;
+    _data_length = data_length;
 }
 
 void MicroLCDGraph::setDomain(int min, int max)
@@ -13,21 +13,25 @@ void MicroLCDGraph::setDomain(int min, int max)
     _max = max;
 }
 
-void MicroLCDGraph::draw(int *data, byte width, byte height)
+void MicroLCDGraph::draw(int *data)
 {
-    byte line[byte_size];
+    byte line[_byte_size];
+    for(int i=0;i< _byte_size;i++){
+      line[i] = 0;
+    }
     line[0] = 0x01;
-    for (int i=0;i< data_length;i++){
-        int shift = 8 * byte_size * ( data[i] - _min ) / (_max - _min);
-        if (shift > 8 * byte_size){
-            shift = (8 * byte_size) - 1;
+    for (int i=0;i< _data_length;i++){
+        int shift = 8 * _byte_size * ( data[i] - _min ) / (_max - _min);
+        if (shift > 8 * _byte_size){
+            shift = (8 * _byte_size) - 1;
         }
-        shift_left(line, byte_size, shift);
-        for(int j=0;j<byte_size;j++){
-            _bitmap[i + j * data_length] = line[j];
+        shift_left(line, _byte_size, shift);
+        
+        for(int j=0;j<_byte_size;j++){
+            _bitmap[i + j * _data_length] = line[j];
         }
     }
-    _lcd->draw(_bitmap, width, height);
+    _lcd->draw(_bitmap, _data_length, _byte_size * 8);
 }
 
 void shift_left(unsigned char *ar, int size, int shift)
