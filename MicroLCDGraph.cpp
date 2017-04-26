@@ -17,7 +17,7 @@ void MicroLCDGraph::draw(int *data, byte width, byte height)
 {
     byte line[byte_size];
     line[0] = 0x01;
-    for (int i=0;i< data_size;i++){
+    for (int i=0;i< data_length;i++){
         int shift = 8 * byte_size * ( data[i] - _min ) / (_max - _min);
         if (shift > 8 * byte_size){
             shift = (8 * byte_size) - 1;
