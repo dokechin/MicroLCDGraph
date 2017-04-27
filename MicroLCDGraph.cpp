@@ -38,10 +38,11 @@ void shift_left(unsigned char *ar, int size, int shift)
 {
     int carry = 0;
     while (shift--) {
-        for (int i = size - 1; i >=0; --i) {
+        for (int i = 0; i < size; i++) {
             int next = (ar[i] & 0x80) ? 0x01 : 0;
             ar[i] = carry | (ar[i] << 1);
             carry = next;
-        }   
+        }
+        carry = 0;
     }
 }
