@@ -16,7 +16,7 @@ MicroLCDGraph graph(LCD_Common *lcd, byte *bitmap, BYTE_SIZE size);
 
 ```C++
 setDomain(int min, int max);
-draw(int *data, byte width, byte height);
+draw(int *data, byte data_length);
 ```
 
 # Example
@@ -26,22 +26,16 @@ draw(int *data, byte width, byte height);
 #include <MicroLCD.h>
 #include <MicroLCDGraph.h>
 
-byte bitmap[16 * 5 /8] = {
- 0x00, 0x00, 0x00, 0x00, 0x00,
- 0x00, 0x00, 0x00, 0x00, 0x00
-};
-
 LCD_SSD1306 lcd; /* for SSD1306 OLED module */
 
 void setup()
 {
     lcd.begin();
-    Serial.begin(115200);
 }
 
 void loop()
 {
-    MicroLCDGraph lcd_graph(&lcd, bitmap, BYTE_SIZE_2, 5);
+    MicroLCDGraph lcd_graph(&lcd, bitmap, BYTE_SIZE_2);
 
     int data[] = {98, 70, 28, 30, 60};
     lcd.clear();
@@ -49,7 +43,7 @@ void loop()
 
     while(1){
         lcd.setCursor(40, 1);
-        lcd_graph.draw(data);
+        lcd_graph.draw(data,5);
         for (int i=0;i<5;i++){
             data[i] = random(0,101);
         }

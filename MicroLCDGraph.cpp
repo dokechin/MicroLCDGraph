@@ -1,10 +1,18 @@
 #include "MicroLCDGraph.h"
 
-MicroLCDGraph::MicroLCDGraph (LCD_Common *lcd, byte *bitmap, BYTE_SIZE size, byte data_length){
+// fonts data
+const PROGMEM unsigned char bar8[][1] = {
+    0x01,0x03,0x07,0x0f,0x1f,0x3f,0x7f,0xff
+};
+
+const PROGMEM unsigned char bar16[][2] = {
+    {0x00,0x01},{0x00,0x03},{0x00,0x07},{0x00,0x0f},{0x00,0x1f},{0x00,0x3f},{0x00,0x7f},{0x00,0xff}
+    {0x01,0xff},{0x03,0x07},{0x07,0xff},{0x0f,0xff},{0x1f,0x3f},{0x3f,0x7f},{0x7f,0xff},{0xff,0xff}
+};
+
+MicroLCDGraph::MicroLCDGraph (LCD_Common *lcd, BYTE_SIZE size){
     _lcd = lcd;
-    _bitmap = bitmap;
     _byte_size = size;
-    _data_length = data_length;
 }
 
 void MicroLCDGraph::setDomain(int min, int max)
@@ -13,36 +21,23 @@ void MicroLCDGraph::setDomain(int min, int max)
     _max = max;
 }
 
-void MicroLCDGraph::draw(int *data)
+void MicroLCDGraph::draw(int *data, byte data_length)
 {
-    byte line[_byte_size];
-    for(int i=0;i< _byte_size;i++){
-      line[i] = 0;
-    }
-    line[0] = 0x01;
-    for (int i=0;i< _data_length;i++){
+    for (int i=0;i< data_length;i++){
         int shift = 8 * _byte_size * ( data[i] - _min ) / (_max - _min);
         if (shift > 8 * _byte_size){
-            shift = (8 * _byte_size) - 1;
+            shift = (8 * _byte_size);
         }
-        shift_left(line, _byte_size, shift);
-        
-        for(int j=byte_size,k=0;j >= 0 ;j--,k++){
-            _bitmap[i + k * _data_length] = line[j];
-        }    
+        byte *bar;
+        switch(_byte_size){
+            case BYTE_SIZE_1:
+                bar = bar8;
+                break;
+            case BYTE_SIZE_2:
+                bar = bar16;
+                break;
+        }
+        _lcd->draw(bar[shift], 1, _byte_size * 8);
     }
-    _lcd->draw(_bitmap, _data_length, _byte_size * 8);
 }
 
-void shift_left(unsigned char *ar, int size, int shift)
-{
-    int carry = 0;
-    while (shift--) {
-        for (int i = 0; i < size; i++) {
-            int next = (ar[i] & 0x80) ? 0x01 : 0;
-            ar[i] = carry | (ar[i] << 1);
-            carry = next;
-        }
-        carry = 0;
-    }
-}
