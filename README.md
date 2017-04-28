@@ -35,9 +35,9 @@ void setup()
 
 void loop()
 {
-    MicroLCDGraph lcd_graph(&lcd, bitmap, BYTE_SIZE_2);
+    MicroLCDGraph lcd_graph(&lcd, BYTE_SIZE_2);
 
-    int data[] = {98, 70, 28, 30, 60};
+    int data[] = {98, 70, 28, 30, ß60};
     lcd.clear();
     lcd_graph.setDomain(0,100);
 
