@@ -6,6 +6,9 @@ An Arduino library for drawing Graph on LCD.
 This library is depends on the Arduino library MicroLCD:
 https://github.com/stanleyhuangyc/MultiLCD
 
+Sorry this library is not working, please see forked library
+https://github.com/dokechin/MultiLCD
+
 # Constructor
 
 ```C++
